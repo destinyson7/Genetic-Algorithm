@@ -15,8 +15,12 @@ best = state
 mini = 1e17
 def mutate(child):
 	index = random.randint(0, 10)
-	new_val = random.uniform(-10, 10)
-	child[index] = new_val
+	new_val = random.uniform(-1, 1)
+	child[index] += new_val
+	if child[index] < -10:
+		child[index] = 10
+	elif child[index] > 10:
+		child[index] = 10
 	return child
 
 for i in range(10):
@@ -68,12 +72,12 @@ for i in range(10):
 		new_state[2*j + 1] = new_state[2*j + 1][:crossover_point] + temp[crossover_point:]
 		
 		mutation_prob = random.uniform(0, 1)
-		if mutation_prob > small_random_prob:
-			new_state[2*j] = mutate(new_state[2*j])
+		# if mutation_prob > small_random_prob:
+		new_state[2*j] = mutate(new_state[2*j])
 
 		mutation_prob = random.uniform(0, 1)
-		if mutation_prob > small_random_prob:
-			new_state[2*j + 1] = mutate(new_state[2*j + 1])
+		# if mutation_prob > small_random_prob:
+		new_state[2*j + 1] = mutate(new_state[2*j + 1])
 
 	state = new_state
 
