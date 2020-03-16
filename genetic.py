@@ -3,19 +3,34 @@ import random
 
 k = 4
 small_random_prob = 0.63
-init1 = [0.0, 0.1240317450077846, -6.211941063144333, 0.04933903144709126, 0.03810848157715883, 8.132366097133624e-05, -6.018769160916912e-05, -1.251585565299179e-07, 3.484096383229681e-08, 4.1614924993407104e-11, -6.732420176902565e-12]
-init2 = [ random.uniform(-10, 10) for i in range(11) ]
-init3 = [ random.uniform(-10, 10) for i in range(11) ]
-init4 = [ random.uniform(-10, 10) for i in range(11) ]
+initial_coefficients = json.load(open("coefficients.txt"))
+init = []
+
+min_error = 10000000000
+best_cooeff = []
+errors = []
+for i in initial_coefficients:
+	if min_error > int(initial_coefficients[i]):
+		min_error = initial_coefficients[i]
+		best_cooeff = i.strip('][').split(', ')
+	init.append(i.strip('][').split(', '))
+	errors.append((initial_coefficients[i], i.strip('][').split(', ')))
+
+while len(init) < k:
+	init.append(best_cooeff)
+	errors.append((min_error, best_cooeff))
+# init1 = [0.0, 0.1240317450077846, -6.211941063144333, 0.04933903144709126, 0.03810848157715883, 8.132366097133624e-05, -6.018769160916912e-05, -1.251585565299179e-07, 3.484096383229681e-08, 4.1614924993407104e-11, -6.732420176902565e-12]
+# init2 = [ random.uniform(-10, 10) for i in range(11) ]
+# init3 = [ random.uniform(-10, 10) for i in range(11) ]
+# init4 = [ random.uniform(-10, 10) for i in range(11) ]
 
 err1 = err2 = err3 = err4 = [1, 1]
 
-state = [[0.0, 0.1240317450077846, -6.211941063144333, 0.04933903144709126, 0.03810848157715883, 8.132366097133624e-05, -6.018769160916912e-05, -1.251585565299179e-07, 3.484096383229681e-08, 4.1614924993407104e-11, -6.732420176902565e-12], [0.0, -5.690169131131135, -6.211941063144333, 0.04933903144709126, 0.03810848157715883, 8.132366097133624e-05, -6.018769160916912e-05, -1.251585565299179e-07, 3.484096383229681e-08, 4.1614924993407104e-11, -6.732420176902565e-12], [0.0, 0.1240317450077846, -6.211941063144333, 0.04933903144709126, 0.03810848157715883, 8.132366097133624e-05, -6.018769160916912e-05, -1.251585565299179e-07, 3.484096383229681e-08, 4.1614924993407104e-11, -6.732420176902565e-12], [0.0, 0.1240317450077846, -6.211941063144333, 0.04933903144709126, 0.03810848157715883, 8.132366097133624e-05, -6.018769160916912e-05, -1.251585565299179e-07, -8.528488635238805, 4.1614924993407104e-11, -6.732420176902565e-12]]
-best = state
-mini = 1e17
+state = [init[0], init[1], init[2], init[3]]
+
 def mutate(child):
 	index = random.randint(0, 10)
-	new_val = random.uniform(-1, 1)
+	new_val = random.uniform(-2, 2)
 	child[index] += new_val
 	if child[index] < -10:
 		child[index] = 10
@@ -39,13 +54,18 @@ for i in range(10):
 	print()
 	print()
 
-	fitness1 = err1[0] + 100*err1[1]
-	fitness2 = err2[0] + 100*err2[1]
-	fitness3 = err3[0] + 100*err3[1]
-	fitness4 = err4[0] + 100*err4[1]
-	if min((fitness1, fitness2, fitness3, fitness4)) < mini:
-		mini = min((fitness1, fitness2, fitness3, fitness4))
-		best = state 
+	fitness1 = err1[1]
+	fitness2 = err2[1]
+	fitness3 = err3[1]
+	fitness4 = err4[1]
+	
+	new_errors = errors
+	new_errors.append((fitness1, state[0]))
+	new_errors.append((fitness2, state[1]))
+	new_errors.append((fitness3, state[2]))
+	new_errors.append((fitness4, state[3]))
+	new_errors.sort()
+	errors = [new_errors[0], new_errors[1], new_errors[2], new_errors[3]]
 
 	const = 100 / (1/fitness1 + 1/fitness2 + 1/fitness3 + 1/fitness4)
 	perc1 = const / fitness1
@@ -81,4 +101,11 @@ for i in range(10):
 
 	state = new_state
 
-print("******", best, "*******")
+new_coefficients = {
+	str(errors[0][1]): errors[0][0], 
+	str(errors[1][1]): errors[1][0], 
+	str(errors[2][1]): errors[2][0], 
+	str(errors[3][1]): errors[3][0], 
+}
+print(new_coefficients)
+json.dump(new_coefficients, open("coefficients.txt",'w'))
