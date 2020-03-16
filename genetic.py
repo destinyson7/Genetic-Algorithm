@@ -29,9 +29,9 @@ while len(init) < k:
     init.append(list(map(float, best_cooeff)))
     errors.append((float(min_error), list(map(float, best_cooeff))))
 
-err = [[1, 1] for j in range(4)]
+err = [[1, 1] for j in range(k)]
 
-state = [init[j] for j in range(4)]
+state = [init[j] for j in range(k)]
 
 
 def get_errors(id, vector):
