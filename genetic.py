@@ -1,9 +1,9 @@
-# from client_moodle import *
+from client_moodle import *
 import random
 import json
 
 k = 4
-num_iterations = 10
+num_iterations = 365
 
 secret_key = 'se1Poy6HllKuLEK3WlsQnfi6qAN6zt5JqbUgbchBylLc0FmRf2'
 
@@ -34,21 +34,24 @@ err = [[1, 1] for j in range(k)]
 state = [init[j] for j in range(k)]
 
 
-def get_errors(id, vector):
-    return [1, 10000]
+# def get_errors(id, vector):
+#     return [1, 10000]
+
+
+print(errors)
+print()
+print()
+print()
 
 
 def mutate(child):
     index = random.randint(0, 10)
 
-    new_val = random.uniform(-0.5, 0.5)
+    new_val = random.uniform(-0.5, 0.5)/100
     child[index] += new_val
 
-    if child[index] < -10:
-        child[index] = 10
-
-    elif child[index] > 10:
-        child[index] = 10
+    child[index] = max(child[index], -10)
+    child[index] = min(child[index], 10)
 
     return child
 
@@ -111,6 +114,8 @@ for i in range(num_iterations):
         new_state[2 * j + 1] = mutate(new_state[2 * j + 1])
 
     state = new_state
+
+print(errors)
 
 new_coefficients = {
     str(errors[0][1]): errors[0][0],
