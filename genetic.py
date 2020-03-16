@@ -3,9 +3,9 @@ import random
 import json
 
 k = 4
-num_iterations = 365
+num_iterations = 25
 
-secret_key = 'se1Poy6HllKuLEK3WlsQnfi6qAN6zt5JqbUgbchBylLc0FmRf2'
+secret_key = 'mBAkj2CeFNwihROmN2lzWnH6EJ9uBAXQGBxUD4hnRDKzm1BWkm'
 
 small_random_prob = 0.63
 
