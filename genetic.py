@@ -64,20 +64,20 @@ def crossover(child1, child2):
     return a, b
 
 
-def select(prob_weights):
-    val = random.uniform(0, 100)
+# def select(prob_weights):
+#     val = random.uniform(0, 100)
 
-    if val < prob_weights[0]:
-        return state[0]
+#     if val < prob_weights[0]:
+#         return state[0]
 
-    elif val < prob_weights[0] + prob_weights[1]:
-        return state[1]
+#     elif val < prob_weights[0] + prob_weights[1]:
+#         return state[1]
 
-    elif val < prob_weights[0] + prob_weights[1] + prob_weights[2]:
-        return state[2]
+#     elif val < prob_weights[0] + prob_weights[1] + prob_weights[2]:
+#         return state[2]
 
-    else:
-        return state[3]
+#     else:
+#         return state[3]
 
 
 for i in range(num_iterations):
@@ -104,7 +104,8 @@ for i in range(num_iterations):
 
     perc = [const/fitness[j] for j in range(k)]
 
-    new_state = [select(perc) for j in range(k)]
+    new_state = random.choices(state, perc, k=k)
+    # print(new_state)
 
     for j in range(k // 2):
         new_state[2 * j], new_state[2 * j +
