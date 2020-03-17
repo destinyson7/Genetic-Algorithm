@@ -20,18 +20,21 @@ min_error = 10000000000
 best_cooeff = []
 errors = []
 
-for i in initial_coefficients:
-    if min_error > float(initial_coefficients[i]):
-        min_error = float(initial_coefficients[i])
-        best_cooeff = i.strip('][').split(', ')
+ratio = 5
 
+for i in initial_coefficients:
+    if min_error > float(initial_coefficients[i][0] + ratio*initial_coefficients[i][1]):
+        min_error = float(initial_coefficients[i][0] + ratio*initial_coefficients[i][1])
+        best_cooeff = i.strip('][').split(', ')
+        both_errors = (initial_coefficients[i][0], initial_coefficients[i][1])
     init.append(list(map(float, i.strip('][').split(', '))))
-    errors.append((float(initial_coefficients[i]), list(map(
-        float, i.strip('][').split(', ')))))
+    errors.append((float(initial_coefficients[i][0] + ratio*initial_coefficients[i][1]), list(map(float, i.strip('][').split(', '))), (initial_coefficients[i][0], initial_coefficients[i][1])))
 
 while len(init) < k:
     init.append(list(map(float, best_cooeff)))
-    errors.append((float(min_error), list(map(float, best_cooeff))))
+    errors.append((float(min_error), list(map(float, best_cooeff)), both_errors))
+
+print(errors)
 
 err = [[1, 1] for j in range(k)]
 
@@ -87,7 +90,7 @@ def crossover(child1, child2):
 for i in range(num_iterations):
     err = [get_errors(secret_key, state[j]) for j in range(k)]
 
-    fitness = [(err[j][0] + 5*err[j][1]) for j in range(k)]
+    fitness = [(err[j][0] + ratio*err[j][1]) for j in range(k)]
 
     # print(i, errors)
     # print()
@@ -95,7 +98,7 @@ for i in range(num_iterations):
     # print()
 
     new_errors = errors
-    new_errors.append((fitness[i], state[i]) for i in range(k))
+    new_errors.append((fitness[i], state[i], (err[i][0], err[0][1])) for i in range(k))
     new_errors.sort()
 
     errors = [new_errors[i] for i in range(k//2)]
@@ -120,6 +123,6 @@ for i in range(num_iterations):
 print(errors)
 new_coefficients = {}
 for i in range(k//2):
-    new_coefficients[str(errors[i][1])] = errors[i][0]
+    new_coefficients[str(errors[i][1])] = [errors[i][2][0], errors[i][2][1]]
 
 json.dump(new_coefficients, open("coefficients.txt", 'w'))
