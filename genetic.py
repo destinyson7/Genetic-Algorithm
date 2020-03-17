@@ -1,4 +1,4 @@
-# from client_moodle import *
+from client_moodle import *
 import random
 import json
 
@@ -10,6 +10,7 @@ secret_key = 'RVOghkfjIZR3X3vImlTXMmYmSU9uc790vLqjTozGD4Ka9qFtO1'
 # OUR: se1Poy6HllKuLEK3WlsQnfi6qAN6zt5JqbUgbchBylLc0FmRf2
 # JASHN: mBAkj2CeFNwihROmN2lzWnH6EJ9uBAXQGBxUD4hnRDKzm1BWkm
 # SWASTIK: RVOghkfjIZR3X3vImlTXMmYmSU9uc790vLqjTozGD4Ka9qFtO1
+# AKSHAT: MsOYrg4QoHcnSUht1hvbjhYM5BgzBcQT5HO3WVReiC338ykhP1
 
 small_random_prob = 0.63
 
@@ -24,15 +25,18 @@ ratio = 5
 
 for i in initial_coefficients:
     if min_error > float(initial_coefficients[i][0] + ratio*initial_coefficients[i][1]):
-        min_error = float(initial_coefficients[i][0] + ratio*initial_coefficients[i][1])
+        min_error = float(
+            initial_coefficients[i][0] + ratio*initial_coefficients[i][1])
         best_cooeff = i.strip('][').split(', ')
         both_errors = (initial_coefficients[i][0], initial_coefficients[i][1])
     init.append(list(map(float, i.strip('][').split(', '))))
-    errors.append((float(initial_coefficients[i][0] + ratio*initial_coefficients[i][1]), list(map(float, i.strip('][').split(', '))), (initial_coefficients[i][0], initial_coefficients[i][1])))
+    errors.append((float(initial_coefficients[i][0] + ratio*initial_coefficients[i][1]), list(map(
+        float, i.strip('][').split(', '))), (initial_coefficients[i][0], initial_coefficients[i][1])))
 
 while len(init) < k:
     init.append(list(map(float, best_cooeff)))
-    errors.append((float(min_error), list(map(float, best_cooeff)), both_errors))
+    errors.append((float(min_error), list(
+        map(float, best_cooeff)), both_errors))
 
 # print(errors)
 
@@ -45,10 +49,10 @@ state = [init[j] for j in range(k)]
 #     return [1, 10000]
 
 
-# print(errors)
-# print()
-# print()
-# print()
+print(errors)
+print()
+print()
+print()
 
 
 def mutate(child):
@@ -91,10 +95,10 @@ for i in range(num_iterations):
 
     fitness = [(err[j][0] + ratio*err[j][1]) for j in range(k)]
 
-    print(i, errors)
-    print()
-    print()
-    print()
+    # print(i, errors)
+    # print()
+    # print()
+    # print()
 
     new_errors = errors
     # new_errors.append((fitness[i], state[i], (err[i][0], err[0][1])) for i in range(k))
@@ -102,7 +106,8 @@ for i in range(num_iterations):
         tup = (fitness[i], state[i], (err[i][0], err[0][1]))
         new_errors.append(tup)
     new_errors.sort()
-    errors = [new_errors[i] for i in range(k//2)]
+
+    errors = [new_errors[i] for i in range(k)]
 
     const = 100 / (1 / fitness[0] + 1 / fitness[1] +
                    1 / fitness[2] + 1 / fitness[3])
@@ -123,7 +128,7 @@ for i in range(num_iterations):
 
 print(errors)
 new_coefficients = {}
-for i in range(k//2):
+for i in range(k):
     new_coefficients[str(errors[i][1])] = [errors[i][2][0], errors[i][2][1]]
 
 json.dump(new_coefficients, open("coefficients.txt", 'w'))
