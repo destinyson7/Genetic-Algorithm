@@ -83,7 +83,7 @@ def crossover(child1, child2):
 for i in range(num_iterations):
     err = [get_errors(secret_key, state[j]) for j in range(k)]
 
-    fitness = [err[j][1] for j in range(k)]
+    fitness = [(err[j][0] + 5*err[j][1]) for j in range(k)]
 
     # print(i, errors)
     # print()
