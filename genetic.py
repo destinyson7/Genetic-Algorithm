@@ -2,7 +2,7 @@ from client_moodle import *
 import random
 import json
 
-k = 4
+k = 16
 num_iterations = 25
 
 secret_key = 'mBAkj2CeFNwihROmN2lzWnH6EJ9uBAXQGBxUD4hnRDKzm1BWkm'
@@ -91,13 +91,10 @@ for i in range(num_iterations):
     # print()
 
     new_errors = errors
-    new_errors.append((fitness[0], state[0]))
-    new_errors.append((fitness[1], state[1]))
-    new_errors.append((fitness[2], state[2]))
-    new_errors.append((fitness[3], state[3]))
+    new_errors.append((fitness[i], state[i]) for i in range(k))
     new_errors.sort()
 
-    errors = [new_errors[0], new_errors[1], new_errors[2], new_errors[3]]
+    errors = [new_errors[i] for i in range(k//2)]
 
     const = 100 / (1 / fitness[0] + 1 / fitness[1] +
                    1 / fitness[2] + 1 / fitness[3])
@@ -117,12 +114,8 @@ for i in range(num_iterations):
     state = new_state
 
 print(errors)
-
-new_coefficients = {
-    str(errors[0][1]): errors[0][0],
-    str(errors[1][1]): errors[1][0],
-    str(errors[2][1]): errors[2][0],
-    str(errors[3][1]): errors[3][0],
-}
+new_coefficients = {}
+for i in range(k//2):
+    new_coefficients[str(errors[i][1])] = errors[i][0]
 
 json.dump(new_coefficients, open("coefficients.txt", 'w'))
