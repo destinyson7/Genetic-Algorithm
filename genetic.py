@@ -3,14 +3,15 @@ import random
 import json
 
 k = 10
-num_generations = 35
+num_generations = 112
 
-secret_key = 'RVOghkfjIZR3X3vImlTXMmYmSU9uc790vLqjTozGD4Ka9qFtO1'
+secret_key = 'se1Poy6HllKuLEK3WlsQnfi6qAN6zt5JqbUgbchBylLc0FmRf2'
 
 # OUR: se1Poy6HllKuLEK3WlsQnfi6qAN6zt5JqbUgbchBylLc0FmRf2
 # JASHN: mBAkj2CeFNwihROmN2lzWnH6EJ9uBAXQGBxUD4hnRDKzm1BWkm
 # SWASTIK: RVOghkfjIZR3X3vImlTXMmYmSU9uc790vLqjTozGD4Ka9qFtO1
 # AKSHAT: MsOYrg4QoHcnSUht1hvbjhYM5BgzBcQT5HO3WVReiC338ykhP1
+# ANIMESH: EdQPhzkQ1CnpQ9jxCY4AH8eATTHeZm4IwEs2P1jE2xT3p8sCeE
 
 small_random_prob = 0.63
 
@@ -22,7 +23,7 @@ best_cooeff = []
 errors = []
 
 ratio = 5
-mutation_range = 2
+mutation_range = 0.1
 
 for i in initial_coefficients:
     if min_error > float(initial_coefficients[i][0] + ratio*initial_coefficients[i][1]):
@@ -59,7 +60,7 @@ print()
 def mutate(child):
     index = random.randint(0, 10)
 
-    new_val = random.uniform(-mutation_range, mutation_range)/100
+    new_val = random.uniform(-mutation_range, mutation_range)
     child[index] += new_val
 
     child[index] = max(child[index], -10)
