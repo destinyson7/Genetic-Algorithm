@@ -2,8 +2,8 @@ from client_moodle import *
 import random
 import json
 
-k = 16
-num_iterations = 25
+k = 57
+num_generations = 30
 
 secret_key = 'RVOghkfjIZR3X3vImlTXMmYmSU9uc790vLqjTozGD4Ka9qFtO1'
 
@@ -22,6 +22,7 @@ best_cooeff = []
 errors = []
 
 ratio = 5
+mutation_range = 2
 
 for i in initial_coefficients:
     if min_error > float(initial_coefficients[i][0] + ratio*initial_coefficients[i][1]):
@@ -58,7 +59,7 @@ print()
 def mutate(child):
     index = random.randint(0, 10)
 
-    new_val = random.uniform(-0.5, 0.5)/100
+    new_val = random.uniform(-mutation_range, mutation_range)/100
     child[index] += new_val
 
     child[index] = max(child[index], -10)
@@ -103,7 +104,7 @@ for i in range(num_iterations):
     new_errors = errors
     # new_errors.append((fitness[i], state[i], (err[i][0], err[0][1])) for i in range(k))
     for i in range(k):
-        tup = (fitness[i], state[i], (err[i][0], err[0][1]))
+        tup = (fitness[i], state[i], (err[i][0], err[i][1]))
         new_errors.append(tup)
     new_errors.sort()
 
