@@ -1,4 +1,4 @@
-from client_moodle import *
+# from client_moodle import *
 import random
 import json
 
@@ -34,7 +34,7 @@ while len(init) < k:
     init.append(list(map(float, best_cooeff)))
     errors.append((float(min_error), list(map(float, best_cooeff)), both_errors))
 
-print(errors)
+# print(errors)
 
 err = [[1, 1] for j in range(k)]
 
@@ -45,10 +45,10 @@ state = [init[j] for j in range(k)]
 #     return [1, 10000]
 
 
-print(errors)
-print()
-print()
-print()
+# print(errors)
+# print()
+# print()
+# print()
 
 
 def mutate(child):
@@ -86,21 +86,23 @@ def crossover(child1, child2):
 #     else:
 #         return state[3]
 
-
 for i in range(num_iterations):
     err = [get_errors(secret_key, state[j]) for j in range(k)]
 
     fitness = [(err[j][0] + ratio*err[j][1]) for j in range(k)]
 
-    # print(i, errors)
-    # print()
-    # print()
-    # print()
+    print(i, errors)
+    print()
+    print()
+    print()
 
     new_errors = errors
-    new_errors.append((fitness[i], state[i], (err[i][0], err[0][1])) for i in range(k))
+    # new_errors.append((fitness[i], state[i], (err[i][0], err[0][1])) for i in range(k))
+    for i in range(k):
+        tup = (fitness[i], state[i], (err[i][0], err[0][1]))
+        new_errors.append(tup)
     new_errors.sort()
-
+    break;
     errors = [new_errors[i] for i in range(k//2)]
 
     const = 100 / (1 / fitness[0] + 1 / fitness[1] +
