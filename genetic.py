@@ -2,8 +2,8 @@ from client_moodle import *
 import random
 import json
 
-k = 57
-num_generations = 30
+k = 10
+num_generations = 35
 
 secret_key = 'RVOghkfjIZR3X3vImlTXMmYmSU9uc790vLqjTozGD4Ka9qFtO1'
 
@@ -91,7 +91,7 @@ def crossover(child1, child2):
 #     else:
 #         return state[3]
 
-for i in range(num_iterations):
+for i in range(num_generations):
     err = [get_errors(secret_key, state[j]) for j in range(k)]
 
     fitness = [(err[j][0] + ratio*err[j][1]) for j in range(k)]
