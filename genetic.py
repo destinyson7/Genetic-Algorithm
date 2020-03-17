@@ -102,7 +102,6 @@ for i in range(num_iterations):
         tup = (fitness[i], state[i], (err[i][0], err[0][1]))
         new_errors.append(tup)
     new_errors.sort()
-    break;
     errors = [new_errors[i] for i in range(k//2)]
 
     const = 100 / (1 / fitness[0] + 1 / fitness[1] +
