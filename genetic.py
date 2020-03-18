@@ -3,7 +3,7 @@ import random
 import json
 
 k = 10
-num_generations = 112
+num_generations = 79
 
 secret_key = 'se1Poy6HllKuLEK3WlsQnfi6qAN6zt5JqbUgbchBylLc0FmRf2'
 
@@ -19,26 +19,26 @@ initial_coefficients = json.load(open("coefficients.txt"))
 init = []
 
 min_error = 10000000000
-best_cooeff = []
+best_coeff = []
 errors = []
 
 ratio = 5
-mutation_range = 0.1
+mutation_range = 0.01
 
 for i in initial_coefficients:
-    if min_error > float(initial_coefficients[i][0] + ratio*initial_coefficients[i][1]):
+    if min_error > float(initial_coefficients[i][0] + ratio * initial_coefficients[i][1]):
         min_error = float(
-            initial_coefficients[i][0] + ratio*initial_coefficients[i][1])
-        best_cooeff = i.strip('][').split(', ')
+            initial_coefficients[i][0] + ratio * initial_coefficients[i][1])
+        best_coeff = i.strip('][').split(', ')
         both_errors = (initial_coefficients[i][0], initial_coefficients[i][1])
     init.append(list(map(float, i.strip('][').split(', '))))
-    errors.append((float(initial_coefficients[i][0] + ratio*initial_coefficients[i][1]), list(map(
+    errors.append((float(initial_coefficients[i][0] + ratio * initial_coefficients[i][1]), list(map(
         float, i.strip('][').split(', '))), (initial_coefficients[i][0], initial_coefficients[i][1])))
 
 while len(init) < k:
-    init.append(list(map(float, best_cooeff)))
+    init.append(list(map(float, best_coeff)))
     errors.append((float(min_error), list(
-        map(float, best_cooeff)), both_errors))
+        map(float, best_coeff)), both_errors))
 
 # print(errors)
 
@@ -95,7 +95,7 @@ def crossover(child1, child2):
 for i in range(num_generations):
     err = [get_errors(secret_key, state[j]) for j in range(k)]
 
-    fitness = [(err[j][0] + ratio*err[j][1]) for j in range(k)]
+    fitness = [(err[j][0] + ratio * err[j][1]) for j in range(k)]
 
     # print(i, errors)
     # print()
@@ -114,7 +114,7 @@ for i in range(num_generations):
     const = 100 / (1 / fitness[0] + 1 / fitness[1] +
                    1 / fitness[2] + 1 / fitness[3])
 
-    perc = [const/fitness[j] for j in range(k)]
+    perc = [const / fitness[j] for j in range(k)]
 
     new_state = random.choices(state, perc, k=k)
     # print(new_state)
@@ -134,3 +134,8 @@ for i in range(k):
     new_coefficients[str(errors[i][1])] = [errors[i][2][0], errors[i][2][1]]
 
 json.dump(new_coefficients, open("coefficients.txt", 'w'))
+
+print()
+print()
+print()
+print(errors[0][1])
