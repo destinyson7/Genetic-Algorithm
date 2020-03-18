@@ -22,8 +22,8 @@ min_error = 10000000000
 best_coeff = []
 errors = []
 
-ratio = 5
-mutation_range = 0.01
+ratio = 2
+mutation_range = 5
 
 for i in initial_coefficients:
     if min_error > float(initial_coefficients[i][0] + ratio * initial_coefficients[i][1]):
