@@ -3,9 +3,9 @@ import random
 import json
 
 k = 10
-num_generations = 150
+num_generations = 10
 
-secret_key = 'EdQPhzkQ1CnpQ9jxCY4AH8eATTHeZm4IwEs2P1jE2xT3p8sCeE'
+secret_key = 'se1Poy6HllKuLEK3WlsQnfi6qAN6zt5JqbUgbchBylLc0FmRf2'
 
 # OUR: se1Poy6HllKuLEK3WlsQnfi6qAN6zt5JqbUgbchBylLc0FmRf2
 # JASHN: mBAkj2CeFNwihROmN2lzWnH6EJ9uBAXQGBxUD4hnRDKzm1BWkm
@@ -22,8 +22,8 @@ min_error = 10000000000
 best_coeff = []
 errors = []
 
-ratio = 100
-mutation_range = 0.01
+ratio = 1
+mutation_range = 1e-13
 
 for i in initial_coefficients:
     if min_error > float(initial_coefficients[i][0] + ratio * initial_coefficients[i][1]):
