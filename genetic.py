@@ -3,9 +3,9 @@ import random
 import json
 
 k = 10
-num_generations = 10
+num_generations = 100
 
-secret_key = 'se1Poy6HllKuLEK3WlsQnfi6qAN6zt5JqbUgbchBylLc0FmRf2'
+secret_key = 'mBAkj2CeFNwihROmN2lzWnH6EJ9uBAXQGBxUD4hnRDKzm1BWkm'
 
 # OUR: se1Poy6HllKuLEK3WlsQnfi6qAN6zt5JqbUgbchBylLc0FmRf2
 # JASHN: mBAkj2CeFNwihROmN2lzWnH6EJ9uBAXQGBxUD4hnRDKzm1BWkm
@@ -22,7 +22,7 @@ min_error = 10000000000
 best_coeff = []
 errors = []
 
-ratio = 1
+ratio = 5
 mutation_range = 1e-13
 
 for i in initial_coefficients:
