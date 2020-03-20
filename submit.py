@@ -14,4 +14,5 @@ for i in coefficients:
     init.append(list(map(float, i.strip('][').split(', '))))
 
 for i in range(len(init)):
-    submit(secret_key, init[i])
+    status = submit(secret_key, init[i])
+    print(status)

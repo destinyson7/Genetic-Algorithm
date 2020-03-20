@@ -3,9 +3,9 @@ import random
 import json
 
 k = 10
-num_generations = 100
+num_generations = 15
 
-secret_key = 'mBAkj2CeFNwihROmN2lzWnH6EJ9uBAXQGBxUD4hnRDKzm1BWkm'
+secret_key = 'se1Poy6HllKuLEK3WlsQnfi6qAN6zt5JqbUgbchBylLc0FmRf2'
 
 # OUR: se1Poy6HllKuLEK3WlsQnfi6qAN6zt5JqbUgbchBylLc0FmRf2
 # JASHN: mBAkj2CeFNwihROmN2lzWnH6EJ9uBAXQGBxUD4hnRDKzm1BWkm
@@ -18,21 +18,24 @@ small_random_prob = 0.63
 initial_coefficients = json.load(open("coefficients.txt"))
 init = []
 
-min_error = 10000000000
+min_error = 1000000000000000000
 best_coeff = []
 errors = []
 
-ratio = 5
+ratio = 1
 mutation_range = 1e-13
 
 for i in initial_coefficients:
-    if min_error > float(initial_coefficients[i][0] + ratio * initial_coefficients[i][1]):
+    if min_error > float(initial_coefficients[i][0] * initial_coefficients[i][1]):
         min_error = float(
-            initial_coefficients[i][0] + ratio * initial_coefficients[i][1])
+            initial_coefficients[i][0] * initial_coefficients[i][1])
+
         best_coeff = i.strip('][').split(', ')
         both_errors = (initial_coefficients[i][0], initial_coefficients[i][1])
+
     init.append(list(map(float, i.strip('][').split(', '))))
-    errors.append((float(initial_coefficients[i][0] + ratio * initial_coefficients[i][1]), list(map(
+
+    errors.append((float(initial_coefficients[i][0] * initial_coefficients[i][1]), list(map(
         float, i.strip('][').split(', '))), (initial_coefficients[i][0], initial_coefficients[i][1])))
 
 while len(init) < k:
@@ -95,7 +98,8 @@ def crossover(child1, child2):
 for i in range(num_generations):
     err = [get_errors(secret_key, state[j]) for j in range(k)]
 
-    fitness = [(err[j][0] + ratio * err[j][1]) for j in range(k)]
+    # fitness = [(err[j][0] + ratio * err[j][1]) for j in range(k)]
+    fitness = [(err[j][0] * err[j][1]) for j in range(k)]
 
     # print(i, errors)
     # print()
