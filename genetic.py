@@ -3,7 +3,7 @@ import random
 import json
 
 k = 10
-num_generations = 15
+num_generations = 87
 
 secret_key = 'se1Poy6HllKuLEK3WlsQnfi6qAN6zt5JqbUgbchBylLc0FmRf2'
 
@@ -107,7 +107,7 @@ for i in range(num_generations):
     # print()
 
     new_errors = errors
-    # new_errors.append((fitness[i], state[i], (err[i][0], err[0][1])) for i in range(k))
+
     for i in range(k):
         tup = (fitness[i], state[i], (err[i][0], err[i][1]))
         new_errors.append(tup)
