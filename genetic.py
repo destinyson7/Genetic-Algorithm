@@ -61,13 +61,14 @@ print()
 
 
 def mutate(child):
-    index = random.randint(0, 10)
+    no_of_mutation = random.randint(1, 6)
 
-    new_val = random.uniform(-mutation_range, mutation_range)
-    child[index] += new_val
-
-    child[index] = max(child[index], -10)
-    child[index] = min(child[index], 10)
+    for i in range(no_of_mutation):
+        index = random.randint(0, 10)
+        new_val = random.uniform(-mutation_range, mutation_range)
+        child[index] += new_val
+        child[index] = max(child[index], -10)
+        child[index] = min(child[index], 10)
 
     return child
 
