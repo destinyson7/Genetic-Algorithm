@@ -3,15 +3,16 @@ import random
 import json
 
 k = 10
-num_generations = 200
+num_generations = 100
 
-secret_key = 'se1Poy6HllKuLEK3WlsQnfi6qAN6zt5JqbUgbchBylLc0FmRf2'
+secret_key = 'TRpbdjJ6WIlkhc7mAICzrQqjk9Y4AOmkHNqSjATBsibLDSgrGo'
 
 # OUR: se1Poy6HllKuLEK3WlsQnfi6qAN6zt5JqbUgbchBylLc0FmRf2
 # JASHN: mBAkj2CeFNwihROmN2lzWnH6EJ9uBAXQGBxUD4hnRDKzm1BWkm
 # SWASTIK: RVOghkfjIZR3X3vImlTXMmYmSU9uc790vLqjTozGD4Ka9qFtO1
 # AKSHAT: MsOYrg4QoHcnSUht1hvbjhYM5BgzBcQT5HO3WVReiC338ykhP1
 # ANIMESH: EdQPhzkQ1CnpQ9jxCY4AH8eATTHeZm4IwEs2P1jE2xT3p8sCeE
+# PRIYANSHU: ox5ZDGP4WNz3B8mUC7zSdS7PdrPIJOXWnRsH5QPrl5GyJ0TZwq
 
 small_random_prob = 0.63
 
@@ -26,16 +27,16 @@ ratio = 1
 mutation_range = 1e-13
 
 for i in initial_coefficients:
-    if min_error > float(initial_coefficients[i][0] + (ratio * initial_coefficients[i][1])):
+    if min_error > float((ratio * initial_coefficients[i][1])):
         min_error = float(
-            initial_coefficients[i][0] + (ratio * initial_coefficients[i][1]))
+            (ratio * initial_coefficients[i][1]))
 
         best_coeff = i.strip('][').split(', ')
         both_errors = (initial_coefficients[i][0], initial_coefficients[i][1])
 
     init.append(list(map(float, i.strip('][').split(', '))))
 
-    errors.append((float(initial_coefficients[i][0] + (ratio * initial_coefficients[i][1])), list(map(
+    errors.append((float((ratio * initial_coefficients[i][1])), list(map(
         float, i.strip('][').split(', '))), (initial_coefficients[i][0], initial_coefficients[i][1])))
 
 while len(init) < k:
@@ -100,7 +101,7 @@ for i in range(num_generations):
     err = [get_errors(secret_key, state[j]) for j in range(k)]
 
     # fitness = [(err[j][0] + ratio * err[j][1]) for j in range(k)]
-    fitness = [(err[j][0] + (ratio * err[j][1])) for j in range(k)]
+    fitness = [(ratio * err[j][1]) for j in range(k)]
 
     # print(i, errors)
     # print()
