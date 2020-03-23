@@ -3,9 +3,9 @@ import random
 import json
 
 k = 10
-num_generations = 100
+num_generations = 250
 
-secret_key = 'TRpbdjJ6WIlkhc7mAICzrQqjk9Y4AOmkHNqSjATBsibLDSgrGo'
+secret_key = 'se1Poy6HllKuLEK3WlsQnfi6qAN6zt5JqbUgbchBylLc0FmRf2'
 
 # OUR: se1Poy6HllKuLEK3WlsQnfi6qAN6zt5JqbUgbchBylLc0FmRf2
 # JASHN: mBAkj2CeFNwihROmN2lzWnH6EJ9uBAXQGBxUD4hnRDKzm1BWkm
@@ -27,16 +27,16 @@ ratio = 1
 mutation_range = 1e-13
 
 for i in initial_coefficients:
-    if min_error > float((ratio * initial_coefficients[i][1])):
+    if min_error > float(initial_coefficients[i][0] + (ratio * initial_coefficients[i][1])):
         min_error = float(
-            (ratio * initial_coefficients[i][1]))
+            (initial_coefficients[i][0] + ratio * initial_coefficients[i][1]))
 
         best_coeff = i.strip('][').split(', ')
         both_errors = (initial_coefficients[i][0], initial_coefficients[i][1])
 
     init.append(list(map(float, i.strip('][').split(', '))))
 
-    errors.append((float((ratio * initial_coefficients[i][1])), list(map(
+    errors.append((float(initial_coefficients[i][0] + (ratio * initial_coefficients[i][1])), list(map(
         float, i.strip('][').split(', '))), (initial_coefficients[i][0], initial_coefficients[i][1])))
 
 while len(init) < k:
@@ -62,7 +62,8 @@ print()
 
 
 def mutate(child):
-    no_of_mutation = random.randint(1, 6)
+    # no_of_mutation = random.randint(1, 6)
+    no_of_mutation = 1
 
     for i in range(no_of_mutation):
         index = random.randint(0, 10)
@@ -100,8 +101,8 @@ def crossover(child1, child2):
 for i in range(num_generations):
     err = [get_errors(secret_key, state[j]) for j in range(k)]
 
-    # fitness = [(err[j][0] + ratio * err[j][1]) for j in range(k)]
-    fitness = [(ratio * err[j][1]) for j in range(k)]
+    fitness = [(err[j][0] + ratio * err[j][1]) for j in range(k)]
+    # fitness = [(ratio * err[j][1]) for j in range(k)]
 
     # print(i, errors)
     # print()
@@ -126,8 +127,7 @@ for i in range(num_generations):
     # print(new_state)
 
     for j in range(k // 2):
-        new_state[2 * j], new_state[2 * j +
-                                    1] = crossover(new_state[2 * j], new_state[2 * j + 1])
+        new_state[2 * j], new_state[2 * j + 1] = crossover(new_state[2 * j], new_state[2 * j + 1])
 
         new_state[2 * j] = mutate(new_state[2 * j])
         new_state[2 * j + 1] = mutate(new_state[2 * j + 1])
