@@ -111,12 +111,12 @@ for i in range(num_generations):
 
     new_errors = errors
 
-    for i in range(k):
-        tup = (fitness[i], state[i], (err[i][0], err[i][1]))
+    for j in range(k):
+        tup = (fitness[j], state[j], (err[j][0], err[j][1]))
         new_errors.append(tup)
     new_errors.sort()
 
-    errors = [new_errors[i] for i in range(k)]
+    errors = [new_errors[j] for j in range(k)]
 
     const = 100 / (1 / fitness[0] + 1 / fitness[1] +
                    1 / fitness[2] + 1 / fitness[3])
