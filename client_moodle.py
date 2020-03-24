@@ -59,7 +59,7 @@ if __name__ == "__main__":
     to verify that the server is working for your ID.
     """
 
-    err = get_errors('se1Poy6HllKuLEK3WlsQnfi6qAN6zt5JqbUgbchBylLc0FmRf2', [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+    err = get_errors('se1Poy6HllKuLEK3WlsQnfi6qAN6zt5JqbUgbchBylLc0FmRf2', [0, 8.512477622723832, -1.7463153512019917e-14, 0.04543092441535113, -1.3166021101108983e-13, 0, -7.439202914623583e-14, 1.0418559140503912e-12, -2.1444592822341143e-13, 5.36764406322044e-13, -3.0727748074660687e-15])
     assert len(err) == 2
     print(err)
 
