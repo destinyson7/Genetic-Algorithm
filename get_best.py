@@ -9,5 +9,10 @@ num_coeff = 11
 for i in range(num_coeff):
     best.append(best_coefficients[str(i)][0][1])
 
+print(best)
+print()
+print()
+print()
+
 print(type(best))
 print(type(best[0]))

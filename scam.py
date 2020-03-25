@@ -14,11 +14,24 @@ secret_key = 'se1Poy6HllKuLEK3WlsQnfi6qAN6zt5JqbUgbchBylLc0FmRf2'
 num_coeff = 11
 
 initial_coefficients = json.load(open("individual_coefficients.txt"))
+best_coefficients = json.load(open("individual_best.txt"))
+
 init = []
+best = []
 
 ratio = 1
 
 for cur_coefficient in range(num_coeff):
+
+    best = []
+
+    best_coefficients = json.load(open("individual_best.txt"))
+
+    for i in range(cur_coefficient):
+        best.append(best_coefficients[str(i)][0][1])
+
+    print(best)
+
     init = []
 
     for i in initial_coefficients:
@@ -27,7 +40,10 @@ for cur_coefficient in range(num_coeff):
     state = [init[j] for j in range(len(init))]
     for i in state:
         for j in range(len(i)):
-            if(j != cur_coefficient):
+            if j < cur_coefficient:
+                i[j] = best[j]
+
+            elif j > cur_coefficient:
                 i[j] = 0
 
     print(state)
