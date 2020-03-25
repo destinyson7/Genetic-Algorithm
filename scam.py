@@ -54,7 +54,7 @@ for cur_coefficient in range(num_coeff):
     coefficients_withErrors = []
     err = [get_errors(secret_key, j) for j in state]
 
-    fitness = [(err[j][0] + ratio * err[j][1]) for j in range(len(state))]
+    fitness = [abs(err[j][0] - err[j][1]) for j in range(len(state))]
 
     for j in range(len(state)):
         to_append = (fitness[j], state[j][cur_coefficient])
