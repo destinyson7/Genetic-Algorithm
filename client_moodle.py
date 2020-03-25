@@ -53,15 +53,15 @@ def send_request(id, vector, path):
     return response
 
 
-if __name__ == "__main__":
+# if __name__ == "__main__":
     """
     Replace "test" with your secret ID and just run this file 
     to verify that the server is working for your ID.
     """
 
-    err = get_errors('se1Poy6HllKuLEK3WlsQnfi6qAN6zt5JqbUgbchBylLc0FmRf2', [0, 8.512477622723832, -1.7463153512019917e-14, 0.04543092441535113, -1.3166021101108983e-13, 0, -7.439202914623583e-14, 1.0418559140503912e-12, -2.1444592822341143e-13, 5.36764406322044e-13, -3.0727748074660687e-15])
-    assert len(err) == 2
-    print(err)
+    # err = get_errors('se1Poy6HllKuLEK3WlsQnfi6qAN6zt5JqbUgbchBylLc0FmRf2', [-2.9571421994993077e-13, 8.512477622723832, 2.3928925150630524e-13, 0.04933903144709126, 0.0, 9.268383614250803e-14, 1.3743427846444452e-14, 1.1897388833614035e-12, 0.0, 5.36764406322044e-13, 0.0])
+    # assert len(err) == 2
+    # print(err)
 
-    # submit_status = submit('se1Poy6HllKuLEK3WlsQnfi6qAN6zt5JqbUgbchBylLc0FmRf2', list(-np.arange(0,1.1,0.1)))
+    # submit_status = submit('se1Poy6HllKuLEK3WlsQnfi6qAN6zt5JqbUgbchBylLc0FmRf2', [-2.9571421994993077e-13, 8.512477622723832, 2.3928925150630524e-13, 0.04933903144709126, 0.0, 9.268383614250803e-14, 1.3743427846444452e-14, 1.1897388833614035e-12, 0.0, 5.36764406322044e-13, 0.0])
     # assert "submitted" in submit_status

@@ -5,7 +5,7 @@ import json
 k = 10
 num_generations = 200
 
-secret_key = 'TRpbdjJ6WIlkhc7mAICzrQqjk9Y4AOmkHNqSjATBsibLDSgrGo'
+secret_key = 'se1Poy6HllKuLEK3WlsQnfi6qAN6zt5JqbUgbchBylLc0FmRf2'
 
 # OUR: se1Poy6HllKuLEK3WlsQnfi6qAN6zt5JqbUgbchBylLc0FmRf2
 # JASHN: mBAkj2CeFNwihROmN2lzWnH6EJ9uBAXQGBxUD4hnRDKzm1BWkm
