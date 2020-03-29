@@ -3,7 +3,7 @@ import random
 import json
 
 k = 10
-num_generations = 245
+num_generations = 4
 
 secret_key = 'se1Poy6HllKuLEK3WlsQnfi6qAN6zt5JqbUgbchBylLc0FmRf2'
 
@@ -13,6 +13,7 @@ secret_key = 'se1Poy6HllKuLEK3WlsQnfi6qAN6zt5JqbUgbchBylLc0FmRf2'
 # AKSHAT: MsOYrg4QoHcnSUht1hvbjhYM5BgzBcQT5HO3WVReiC338ykhP1
 # ANIMESH: EdQPhzkQ1CnpQ9jxCY4AH8eATTHeZm4IwEs2P1jE2xT3p8sCeE
 # PRIYANSHU: ox5ZDGP4WNz3B8mUC7zSdS7PdrPIJOXWnRsH5QPrl5GyJ0TZwq
+# MANISH: A51UvRlUeV9TMY3xKjLgA3J4yvKFG4GfZwHqoORuGtH7S2Xkn0
 
 small_random_prob = 0.63
 
@@ -27,15 +28,15 @@ ratio = 1
 mutation_range = 1e-13
 
 for i in initial_coefficients:
-    if min_error > (float(abs(initial_coefficients[i][0] + ratio * initial_coefficients[i][1]) + 2 * abs(initial_coefficients[i][0] - ratio * initial_coefficients[i][1])), float(abs(initial_coefficients[i][0] + ratio * initial_coefficients[i][1]))):
-        min_error = (float(abs(initial_coefficients[i][0] + ratio * initial_coefficients[i][1]) + 2 * abs(initial_coefficients[i][0] - ratio * initial_coefficients[i][1])), float(abs(initial_coefficients[i][0] + ratio * initial_coefficients[i][1])))
+    if min_error > (float(abs(initial_coefficients[i][0] + ratio * initial_coefficients[i][1]) + 5 * abs(initial_coefficients[i][0] - ratio * initial_coefficients[i][1])), float(abs(initial_coefficients[i][0] + ratio * initial_coefficients[i][1]))):
+        min_error = (float(abs(initial_coefficients[i][0] + ratio * initial_coefficients[i][1]) + 5 * abs(initial_coefficients[i][0] - ratio * initial_coefficients[i][1])), float(abs(initial_coefficients[i][0] + ratio * initial_coefficients[i][1])))
 
         best_coeff = i.strip('][').split(', ')
         both_errors = (initial_coefficients[i][0], initial_coefficients[i][1])
 
     init.append(list(map(float, i.strip('][').split(', '))))
 
-    errors.append(((float(abs(initial_coefficients[i][0] + ratio * initial_coefficients[i][1]) + 2 * abs(initial_coefficients[i][0] - ratio * initial_coefficients[i][1])), float(abs(initial_coefficients[i][0] + ratio * initial_coefficients[i][1]))), list(map(
+    errors.append(((float(abs(initial_coefficients[i][0] + ratio * initial_coefficients[i][1]) + 5 * abs(initial_coefficients[i][0] - ratio * initial_coefficients[i][1])), float(abs(initial_coefficients[i][0] + ratio * initial_coefficients[i][1]))), list(map(
         float, i.strip('][').split(', '))), (initial_coefficients[i][0], initial_coefficients[i][1])))
 
 while len(init) < k:
@@ -66,7 +67,7 @@ def mutate(child):
     for i in range(no_of_mutation):
         index = random.randint(0, 10)
 
-        new_val = random.uniform(-20, 20)
+        new_val = random.uniform(-5, 5)
         new_val /= 100
         new_val *= child[index]
 
@@ -103,7 +104,7 @@ def crossover(child1, child2):
 for i in range(num_generations):
     err = [get_errors(secret_key, state[j]) for j in range(k)]
 
-    fitness = [(err[j][0] + ratio * err[j][1] + 2 * abs(err[j][0] - ratio * err[j][1]), abs(err[j][0] + ratio * err[j][1])) for j in range(k)]
+    fitness = [((err[j][0] + ratio * err[j][1] + 5 * abs(err[j][0] - err[j][1])), abs(err[j][0] + ratio * err[j][1])) for j in range(k)]
     # fitness = [(ratio * err[j][1]) for j in range(k)]
 
     # print(i, errors)
